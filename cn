@@ -1,0 +1,37 @@
+def sender(data):
+    print("\n**** SENDER SIDE ****")
+    total = sum(int(x, 2) for x in data)
+    print("Sum (Decimal):", total)
+    print("Sum (Binary):", bin(total)[2:])
+    
+    checksum = ~total
+    print("Checksum (Decimal):", checksum)
+    print("Checksum (Binary):", bin(checksum & 0xFF0)[2:].zfill(8))
+    
+    return checksum
+
+def receiver(data, checksum):
+    print("\n**** RECEIVER SIDE ****")
+    total = sum(int(x, 2) for x in data)
+    print("Sum (Decimal):", total)
+    print("Sum (Binary):", bin(total)[2:])
+    
+    total += checksum
+    result = ~total
+    print("Final Checksum (Decimal):", result)
+    print("Checksum (Binary):", bin(result & 0xFF0)[2:].zfill(8))
+    
+    if result == 0:
+        print("\no errors")
+    else:
+        print("\nerror detected")
+
+n = int(input("Enter no.of binary value: "))
+data = []
+print("Enter binary number:")
+for i in range(n):
+    binary = input(f"Binary {i+1}: ")
+    data.append(binary)
+
+checksum = sender(data)
+receiver(data, checksum)
