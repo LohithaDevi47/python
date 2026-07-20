@@ -1,0 +1,11 @@
+head = input("enter character that represent starting delimiter:")
+tail = input("enter character that represent ending delimiter:")
+st = input("enter frame:")
+res=head
+for i in st:
+    if i==head or i == tail:
+        res=res+i+i
+    else:
+        res=res+i
+res=res+tail
+print("frame after stuffed:",res)
